@@ -4,19 +4,16 @@ import { Hoverable, MotionProps, Text, Card, Motion, Box, Stack, Button } from "
 // Icons
 import { IoEyeOutline, IoHeartOutline, IoStar } from "react-icons/io5";
 // Types
-import type { IProduct } from "@/app/api/data";
+import type { IProduct } from "@/api/data";
 
 export interface ProductProps extends IProduct {
   image: string | undefined;
+  onQuickView: (product: IProduct) => void;
 }
 
-export function Product({
-  name,
-  image,
-  category,
-  price,
-  rate
-}: ProductProps): React.ReactElement {
+export function Product({ onQuickView, ...props }: ProductProps): React.ReactElement {
+  const { name, image, category, price, rate } = props;
+
   return (
     <Hoverable>
       {({ status, isTouch }) => {
@@ -46,7 +43,17 @@ export function Product({
                     <Motion animation="fade-in" duration="slowly">
                       <Box padding={{ inline: "md" }}>
                         <Stack direction="column" items="end" gap="sm">
-                          <Button size="sm" skin="secondary" leftSlot={<IoEyeOutline />} iconOnly>
+                          <Button
+                            size="sm"
+                            skin="secondary"
+                            leftSlot={<IoEyeOutline />}
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              event.preventDefault();
+                              onQuickView(props);
+                            }}
+                            iconOnly
+                          >
                             Quick View
                           </Button>
                           <Button size="sm" skin="secondary" leftSlot={<IoHeartOutline />} iconOnly>

@@ -7,40 +7,16 @@ import { Text, Container, Stack, Box, Accordion, Grid, Checkbox, Separator } fro
 import { Products } from "../components/Products";
 import { Header } from "../components/Header";
 // Hooks
-import { useGetImages } from "@/app/api/hooks/useGetImages";
+import { useGetImages } from "@/api/hooks/useGetImages";
 // Icons
 import { HiMinusSm, HiOutlinePlusSm } from "react-icons/hi";
 // Data
-import { FILTERS, PRODUCTS } from "@/app/api/data";
-
-interface Filters {
-  tag: string[];
-  category: string[];
-  color: string[];
-}
-
-interface Sort {
-  price: "high" | "low" | undefined;
-  popular: "most" | "best" | "newest" | undefined;
-}
+import { FILTERS, PRODUCTS } from "@/api/data";
+import { Filters, useShop } from "@/providers/ShopProvider";
 
 export function Collections(): React.ReactElement {
   const { data } = useGetImages({ query: "fashion", perPage: PRODUCTS.length });
-
-  // Reducer to update the filters, merging the previous state with the new state
-  const [filters, setFilters] = useReducer(
-    (prev: Filters, next: Partial<Filters>) => {
-      return { ...prev, ...next };
-    },
-    { tag: [], category: [], color: [] }
-  );
-
-  const [sort, setSort] = useReducer(
-    (prev: Sort, next: Partial<Sort>) => {
-      return { ...prev, ...next };
-    },
-    { price: undefined, popular: "newest" }
-  );
+  const { filters, setFilters, sort } = useShop();
 
   const productsList = useMemo(() => {
     // If no filters are applied, return all products
@@ -96,7 +72,7 @@ export function Collections(): React.ReactElement {
 
   return (
     <Box>
-      <Header sort={sort} setSort={setSort} />
+      <Header />
 
       <Container screen="xl" alignment="center" padding={{ block: "7xl", inline: "lg" }}>
         <Grid cols={4}>

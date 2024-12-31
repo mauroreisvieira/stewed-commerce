@@ -1,4 +1,4 @@
-import { Collections } from "./Collections";
+import { Collections } from "@/partials/Collections";
 
 export default function Products() {
   return (

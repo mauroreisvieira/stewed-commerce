@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 // Fonts
 import { Geist, Geist_Mono } from "next/font/google";
 // Provider
-import QueryProvider from "./providers/QueryProvider";
-import ThemeProvider from "./providers/ThemeProvider";
+import ThemeProvider from "@/providers/ThemeProvider";
+import QueryProvider from "@/providers/QueryProvider";
+import ShopProvider from "@/providers/ShopProvider";
 
-import './styles.css'
+import "../css/styles.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,11 +28,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <QueryProvider>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            <ShopProvider>{children}</ShopProvider>
+          </ThemeProvider>
         </QueryProvider>
       </body>
     </html>

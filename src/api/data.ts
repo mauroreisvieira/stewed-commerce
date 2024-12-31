@@ -109,7 +109,9 @@ export const PRODUCTS: IProduct[] = [
     name: "Chic Midi Dress",
     slug: "chic-midi-dress",
     category: "Dresses",
-    rate: REVIEWS.reduce((total, review) => total + review.reviewRate, 0) / REVIEWS.length,
+    rate: +(
+      REVIEWS.reduce((total, review) => total + review.reviewRate, 0) / REVIEWS.length
+    ).toFixed(1),
     color: ["Black", "Red"],
     description:
       "A timeless midi dress with a flattering silhouette, perfect for any occasion, from casual outings to evening events. The soft fabric feels luxurious and drapes beautifully, making it a versatile wardrobe staple.\n\nThe dress can be dressed up or down depending on the occasion, providing an effortless yet elegant look. Ideal for cocktail parties, dinners, or a day out with friends.\n\nIts versatility and comfort make it a must-have piece for your wardrobe.",
@@ -436,32 +438,6 @@ export const FILTERS = [
     name: "Color",
     key: "color",
     values: COLORS
-  }
-];
-
-export const PRICE = [
-  {
-    name: "Low to high",
-    key: "low"
-  },
-  {
-    name: "High to low",
-    key: "high"
-  }
-];
-
-export const SORT = [
-  {
-    name: "Most popular",
-    key: "most"
-  },
-  {
-    name: "Best rating",
-    key: "best"
-  },
-  {
-    name: "Newest",
-    key: "newest"
   }
 ];
 

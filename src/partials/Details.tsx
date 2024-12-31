@@ -21,15 +21,14 @@ import {
   Progress
 } from "@stewed/react";
 // Partials
-
+import { Products } from "@/components/Products";
 // Hooks
 import { useInput } from "@stewed/hooks";
 // Icons
 import { HiStar, HiMinusSm, HiOutlinePlusSm } from "react-icons/hi";
-import { useGetImages } from "@/app/api/hooks/useGetImages";
+import { useGetImages } from "@/api/hooks/useGetImages";
 // Data
-import { PRODUCTS, REVIEWS, SIZES } from "@/app/api/data";
-import { Products } from "../../components/Products";
+import { PRODUCTS, REVIEWS, SIZES } from "@/api/data";
 
 interface DetailsProps {
   slug: string;

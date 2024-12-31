@@ -1,22 +1,50 @@
 import React from "react";
 // UI Components
 import { Box, Text, Container, Stack, Dropdown, ListBox } from "@stewed/react";
+// Hooks
+import { useShop, type ISort } from "@/providers/ShopProvider";
 // Icons
 import { LuCheck } from "react-icons/lu";
-// Data
-import { SORT, PRICE } from "@/app/api/data";
 
-export interface Sort {
-  price: "high" | "low" | undefined;
-  popular: "most" | "best" | "newest" | undefined;
+interface IPopularSort {
+  name: string;
+  value: ISort["popular"];
 }
 
-interface HeaderProps {
-  sort: Sort;
-  setSort: React.ActionDispatch<[next: Partial<Sort>]>;
+interface IPriceSort {
+  name: string;
+  value: ISort["price"];
 }
 
-export function Header({ sort, setSort }: HeaderProps): React.ReactElement {
+const RatingSort: IPopularSort[] = [
+  {
+    name: "Most popular",
+    value: "most"
+  },
+  {
+    name: "Best rating",
+    value: "best"
+  },
+  {
+    name: "Newest",
+    value: "newest"
+  }
+];
+
+const PriceSort: IPriceSort[] = [
+  {
+    name: "Low to high",
+    value: "low"
+  },
+  {
+    name: "High to low",
+    value: "high"
+  }
+];
+
+export function Header(): React.ReactElement {
+  const { sort, setSort } = useShop();
+
   return (
     <Box skin="neutral-faded" padding={{ block: "4xl" }}>
       <Container screen="xl" alignment="center" padding={{ block: "7xl", inline: "lg" }}>
@@ -43,13 +71,13 @@ export function Header({ sort, setSort }: HeaderProps): React.ReactElement {
                 <Box padding={{ inline: "xs", block: "md" }}>
                   <ListBox>
                     <ListBox.Group title="Sort by">
-                      {SORT.map(({ key, name }) => (
+                      {RatingSort.map(({ value, name }) => (
                         <ListBox.Item
-                          key={key}
+                          key={value}
                           as="button"
-                          rightSlot={key === sort.popular ? <LuCheck /> : undefined}
+                          rightSlot={value === sort.popular ? <LuCheck /> : undefined}
                           onClick={() => {
-                            setSort({ popular: key as Sort["popular"] });
+                            setSort({ popular: value });
                             close();
                           }}
                         >
@@ -59,13 +87,13 @@ export function Header({ sort, setSort }: HeaderProps): React.ReactElement {
                     </ListBox.Group>
                     <ListBox.Separator />
                     <ListBox.Group title="Price">
-                      {PRICE.map(({ key, name }) => (
+                      {PriceSort.map(({ value, name }) => (
                         <ListBox.Item
-                          key={key}
+                          key={value}
                           as="button"
-                          rightSlot={key === sort.price ? <LuCheck /> : undefined}
+                          rightSlot={value === sort.price ? <LuCheck /> : undefined}
                           onClick={() => {
-                            setSort({ price: key as Sort["price"] });
+                            setSort({ price: value });
                             close();
                           }}
                         >

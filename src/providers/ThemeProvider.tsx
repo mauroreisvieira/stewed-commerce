@@ -4,10 +4,11 @@ import React from "react";
 // UI Components
 import { Theme } from "@stewed/react";
 
-interface ThemeProviderProps {
-  children?: React.ReactNode;
-}
-export default function ThemeProvider({ children }: ThemeProviderProps): React.ReactElement {
+export default function ThemeProvider({
+  children
+}: {
+  children: React.ReactNode;
+}): React.ReactElement {
   return (
     <Theme
       tokens={{

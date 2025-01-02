@@ -427,17 +427,20 @@ export const FILTERS = [
   {
     name: "Tag",
     key: "tag",
-    values: TAGS
+    values: TAGS,
+    defaultOpen: true
   },
   {
     name: "Category",
     key: "category",
-    values: CATEGORIES
+    values: CATEGORIES,
+    defaultOpen: false
   },
   {
     name: "Color",
     key: "color",
-    values: COLORS
+    values: COLORS,
+    defaultOpen: false
   }
 ];
 

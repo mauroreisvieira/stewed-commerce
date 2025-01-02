@@ -6,12 +6,17 @@ import { IoEyeOutline, IoHeartOutline, IoStar } from "react-icons/io5";
 // Types
 import type { IProduct } from "@/api/data";
 
-export interface ProductProps extends IProduct {
-  image: string | undefined;
+export interface ProductCardProps extends IProduct {
+  image?: string;
+  showQuickActions?: boolean;
   onQuickView: (product: IProduct) => void;
 }
 
-export function Product({ onQuickView, ...props }: ProductProps): React.ReactElement {
+export function ProductCard({
+  showQuickActions = false,
+  onQuickView,
+  ...props
+}: ProductCardProps): React.ReactElement {
   const { name, image, category, price, rate } = props;
 
   return (
@@ -39,7 +44,7 @@ export function Product({ onQuickView, ...props }: ProductProps): React.ReactEle
                     className
                   }}
                 >
-                  {status === "enter" && (
+                  {showQuickActions && status === "enter" && (
                     <Motion animation="fade-in" duration="slowly">
                       <Box padding={{ inline: "md" }}>
                         <Stack direction="column" items="end" gap="sm">
@@ -50,6 +55,7 @@ export function Product({ onQuickView, ...props }: ProductProps): React.ReactEle
                             onClick={(event) => {
                               event.stopPropagation();
                               event.preventDefault();
+
                               onQuickView(props);
                             }}
                             iconOnly

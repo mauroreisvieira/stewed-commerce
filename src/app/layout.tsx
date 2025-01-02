@@ -5,7 +5,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import ThemeProvider from "@/providers/ThemeProvider";
 import QueryProvider from "@/providers/QueryProvider";
 import ShopProvider from "@/providers/ShopProvider";
-
+// UI Components
+import { Header } from "@/components/header";
+// Styles
 import "../css/styles.css";
 
 const geistSans = Geist({
@@ -28,13 +30,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <QueryProvider>
           <ThemeProvider>
-            <ShopProvider>{children}</ShopProvider>
+            <ShopProvider>
+              <Header />
+              {children}
+            </ShopProvider>
           </ThemeProvider>
         </QueryProvider>
       </body>
